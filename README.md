@@ -9,7 +9,7 @@ This is intended to be used with a group_vars/all, where policies and policy_exe
 They can further be set to foreman_params.policies and foreman_params.groupvars and controlled out of foreman. 
 
 Example locally defined group_vars/all may include:
-
+```
 policies:
   - DISA-STIG-RHEL-07-020000
   - NIST-800-171-3.1.13
@@ -18,5 +18,5 @@ policy_exemptions:
   - CCE-80148-0
   - CCE-80146-4
   - CCE-80147-2
-
+```
 This is a temporary workaround. A better approach would be adding this functionality directly to oscap generate.

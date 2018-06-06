@@ -1,12 +1,14 @@
 #!/bin/bash
-# This is a script written to allow two foreman parameters set for all hosts in a server fleet via hostgroup or overridden host parameters to exempt systems from specific scap controls 
+# This is a script written to allow two foreman parameters set for all hosts in a server fleet via hostgroup 
+# or overridden host parameters to exempt systems from specific scap controls 
 # with a CCE tag, without fragmenting the job template in Ansible Tower into multiple differently parameterized templates.
 # A single template running all SCAP controls can run on the entire fleet.  
 
 # This script and its sed programs inject a "when" yml section into each play. 
 # The section is a multi-line hash of conditions governing each play.
 # The first hash member sets a requirement that foreman_params.policies include the policy name. 
-# In sections where a tag named CCE-<number> is mentioned, a second when hash member is inserted requiring that this CCE number IS NOT in foreman_params.policy_exemptions hash
+# In sections where a tag named CCE-<number> is mentioned, 
+# a second when hash member is inserted requiring that this CCE number IS NOT in foreman_params.policy_exemptions hash
 
 [ "x$1" = x ] && echo "Usage: $0 policy.yml policy-foreman-tag" && exit 0
 case `uname` in
@@ -48,9 +50,9 @@ sed $quiet_switch '{
     # This above section is not complete yet. Swap the pattern space holding our modified section with the hold space containing everything we have accumulated and not yet printed
     x
     # Everything accumulated is now in the pattern space and the new modified section is in the hold space
-    # Print out the pattern buffer
+    # Print out the pattern space
     p
-    # Delete the pattern buffer and start on the next line of input
+    # Delete the pattern space and start on the next line of input
     d
   }
   # the next section will apply only for lines containing CEE. These are expected to be members of the tags hash
@@ -83,7 +85,7 @@ sed $quiet_switch '{
  # This is circumstantially nearly always as of when this was written so but may not always be. 
  # When such a when line from the autogenerator is encountered
  /^      when: .*$/{
-    # Read a second line into the pattern buffer
+    # Read a second line into the pattern space
     N
     # if a second when placed by the first sed program above just above the tags is spotted in the following line
     /\n      when:$/{

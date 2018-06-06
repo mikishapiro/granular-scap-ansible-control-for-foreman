@@ -77,7 +77,7 @@ sed $quiet_switch '{
   $x
   # Again if this is the end print out the remaining pattern space
   $p
-  # Clean the pattern space and allow the program to complete
+  # Clean the pattern space and either iterate for next line of input or end execution if no more lines
   d
 }' $1 | sed $quiet_switch '{
  # This secondary script will use a standard N P D loop to deal with when lines with inline content inherited from the scap autogenerator.
